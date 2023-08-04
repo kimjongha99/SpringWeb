@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -47,7 +47,6 @@
             Featured
           </div>
           <div class="card-body">
-
             <div class="input-group mb-3">
               <span class="input-group-text">TNO</span>
               <input type="text" name="tno" class="form-control"
@@ -86,15 +85,34 @@
                 <button type="button" class="btn btn-secondary">List</button>
               </div>
             </div>
- <script>
-   document.querySelector(".btn-primary").addEventListener("click", function(e){
-     self.location = "/todo/modify?tno="+${dto.tno}
-   },false)
 
-   document.querySelector(".btn-secondary").addEventListener("click", function(e){
-       self.location = "/todo/list";
-   },false)
- </script>
+            <script>
+              /*document.querySelector(".btn-primary").addEventListener("click", function(e){
+                  self.location = "/todo/modify?tno="+${dto.tno}
+                            },false)*/
+
+
+              document.querySelector(".btn-primary").addEventListener("click", function(e){
+
+                self.location = `/todo/modify?tno=${dto.tno}&${pageRequestDTO.link}`
+
+              },false)
+
+
+
+              // document.querySelector(".btn-secondary").addEventListener("click", function(e){
+              //     self.location = "/todo/list";
+              // },false)
+
+              //목록 페이지로 이동하는 이벤트 처리
+              document.querySelector(".btn-secondary").addEventListener("click", function(e){
+
+                self.location = "/todo/list?${pageRequestDTO.link}"
+
+              },false)
+
+            </script>
+
 
           </div>
         </div>
@@ -103,8 +121,6 @@
 
   </div>
   <div class="row content">
-
-    <h1>Content</h1>
   </div>
   <div class="row footer">
     <!--<h1>Footer</h1>-->
