@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -39,6 +39,7 @@
         </div>
         <!-- header end -->
         <!-- 기존의 <h1>Header</h1>끝 -->
+
         <div class="row content">
             <div class="col">
                 <div class="card">
@@ -90,50 +91,89 @@
                                 </div>
                             </div>
                         </form>
+
                         <script>
-                            const formObj = document.querySelector("form")
 
-                            document.querySelector(".btn-danger").addEventListener("click",function(e) {
+                            const serverValidResult = {}
 
-                                e.preventDefault()
-                                e.stopPropagation()
+                            <c:forEach items="${errors}" var="error">
 
-                                formObj.action ="/todo/remove"
-                                formObj.method ="post"
+                            serverValidResult['${error.getField()}'] = '${error.defaultMessage}'
 
-                                formObj.submit()
+                            </c:forEach>
 
-                            },false);
-
-                            document.querySelector(".btn-primary").addEventListener("click",function(e) {
-
-                                e.preventDefault()
-                                e.stopPropagation()
-
-                                formObj.action ="/todo/modify"
-                                formObj.method ="post"
-
-                                formObj.submit()
-
-                            },false);
-
-                            document.querySelector(".btn-secondary").addEventListener("click", function(e){
-                                e.preventDefault()
-                                e.stopPropagation()
-                            self.location="/todo/list";
-                            },false)
-
+                            console.log(serverValidResult)
                         </script>
 
                     </div>
+                    <script>
+
+                        const formObj = document.querySelector("form")
+
+                        // document.querySelector(".btn-danger").addEventListener("click",function(e) {
+                        //
+                        //     e.preventDefault()
+                        //     e.stopPropagation()
+                        //
+                        //     formObj.action ="/todo/remove"
+                        //     formObj.method ="post"
+                        //
+                        //     formObj.submit()
+                        //
+                        // },false);
+
+                        document.querySelector(".btn-danger").addEventListener("click",function(e) {
+
+                            e.preventDefault()
+                            e.stopPropagation()
+
+                            formObj.action =`/todo/remove?${pageRequestDTO.link}`
+                            formObj.method ="post"
+
+                            formObj.submit()
+
+                        },false);
+
+
+                        document.querySelector(".btn-primary").addEventListener("click",function(e) {
+
+                            e.preventDefault()
+                            e.stopPropagation()
+
+                            formObj.action ="/todo/modify"
+                            formObj.method ="post"
+
+                            formObj.submit()
+
+                        },false);
+
+                        /*document.querySelector(".btn-secondary").addEventListener("click",function(e) {
+
+                            e.preventDefault()
+                            e.stopPropagation()
+
+                            self.location = "/todo/list";
+
+                        },false);*/
+
+                        document.querySelector(".btn-secondary").addEventListener("click",function(e) {
+
+                            e.preventDefault()
+                            e.stopPropagation()
+
+                            self.location= `/todo/list?${pageRequestDTO.link}`
+
+                        },false);
+
+
+                    </script>
+
                 </div>
             </div>
         </div>
 
     </div>
     <div class="row content">
-
-        <h1>Content</h1>
     </div>
     <div class="row footer">
         <!--<h1>Footer</h1>-->
