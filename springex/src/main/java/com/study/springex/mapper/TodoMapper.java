@@ -1,6 +1,7 @@
 package com.study.springex.mapper;
 
 import com.study.springex.domain.TodoVO;
+import com.study.springex.dto.PageRequestDTO;
 
 import java.util.List;
 
@@ -18,5 +19,9 @@ public interface TodoMapper {
 
 
     void update(TodoVO todoVO);
+
+    List<TodoVO> selectList(PageRequestDTO pageRequestDTO);
+
+    int getCount(PageRequestDTO pageRequestDTO);
 
 }
